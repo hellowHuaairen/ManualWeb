@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="wangzg">
+    <constants>
+        <viewSuffix>.html</viewSuffix>
+    </constants>
+    <action name="index" method="index" class="controller.UserController" type="text/html" page="index" />
+    <action name="login" method="login" class="controller.UserController" type="text/html" page="login" />
+</package>
