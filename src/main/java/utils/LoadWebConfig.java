@@ -19,7 +19,7 @@ import java.util.*;
  */
 public class LoadWebConfig {
 
-    private final static String CONFIG_PATH = "/config/webConfig.xml";//配置文件存放的路径
+    private final static String CONFIG_PATH = "/config/webConfig.xml";
     private final static String CONSTANT_LABEL = "constants";
     private final static String ACTION_LABEL = "action";
 

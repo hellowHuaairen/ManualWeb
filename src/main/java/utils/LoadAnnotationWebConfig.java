@@ -35,7 +35,7 @@ public class LoadAnnotationWebConfig {
     public  static Map<String, String> constants = new HashMap<>();
 
     public static List<ViewBean> resultViews = new ArrayList<>();
-    
+
     private static List<File> filelist = new ArrayList<>();
 
     public static void main(String [] args){
