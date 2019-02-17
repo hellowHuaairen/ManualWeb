@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import utils.LoadAnnotationWebConfig;
 import utils.LoadWebConfig;
 
 /**
@@ -18,8 +19,10 @@ import utils.LoadWebConfig;
 public class NettyHttpServer {
 
     LoadWebConfig loadWebConfig = new LoadWebConfig();
+    LoadAnnotationWebConfig loadAnnotationWebConfig = new LoadAnnotationWebConfig();
     public  NettyHttpServer(){
         loadWebConfig.init();
+        loadAnnotationWebConfig.init();
     }
     public static void main(String[] args) {
         //todo 端口暂时不考虑，后期需要可配置
@@ -37,7 +40,7 @@ public class NettyHttpServer {
                         ch.pipeline().addLast(
                                 new HttpResponseEncoder(),
                                 new HttpRequestDecoder(),
-                                new NettyHttpServerHandler(loadWebConfig));
+                                new NettyHttpServerHandler(loadWebConfig, loadAnnotationWebConfig));
                     }
                 }).option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true);

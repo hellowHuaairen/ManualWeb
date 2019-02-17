@@ -11,10 +11,7 @@ import io.netty.handler.codec.http.*;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import utils.ByteUtils;
-import utils.HtmlUtils;
-import utils.LoadWebConfig;
-import utils.ReadWebTemplate;
+import utils.*;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -25,9 +22,17 @@ import java.util.Map;
  */
 public class NettyHttpServerHandler extends ChannelInboundHandlerAdapter {
 
+    /**
+     * 加载xml文件的action的配置
+     */
     private LoadWebConfig loadWebConfig;
-    public NettyHttpServerHandler(LoadWebConfig loadWebConfig){
+    /**
+     * 加载主机的action配置
+     */
+    private LoadAnnotationWebConfig loadAnnotationWebConfig;
+    public NettyHttpServerHandler(LoadWebConfig loadWebConfig, LoadAnnotationWebConfig loadAnnotationWebConfig){
         this.loadWebConfig = loadWebConfig;
+        this.loadAnnotationWebConfig = loadAnnotationWebConfig;
     }
 
 
@@ -97,7 +102,11 @@ public class NettyHttpServerHandler extends ChannelInboundHandlerAdapter {
     private String returnView(String executeMethod, ControllerContext context) throws Exception {
 
         String returnView = "";
+        //通过配置文件加载的action的配置
         List<ViewBean> resultViews = loadWebConfig.getResultViews();
+        //通过注解形式加载的action的配置
+        List<ViewBean> resultAnnotationViews = loadAnnotationWebConfig.getResultViews();
+        resultViews.addAll(resultAnnotationViews);
         if(CollectionUtils.isNotEmpty(resultViews) && StringUtils.isNotEmpty(executeMethod)){
             for(ViewBean view: resultViews){
                 //action 的name属性相同时

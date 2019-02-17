@@ -1,5 +1,6 @@
 package controller;
 
+import annotation.Action;
 import bean.ControllerContext;
 
 /**
@@ -16,5 +17,17 @@ public class UserController {
 
         context.addParam("key", "this is login method!");
         return "login";
+    }
+
+    /**
+     * 通过注解实现action
+     * @param context
+     * @return
+     */
+    
+    @Action("annotationTest")
+    public String annotation(ControllerContext context){
+        context.addParam("key", "this is login method!");
+        return "annotationTest";
     }
 }
